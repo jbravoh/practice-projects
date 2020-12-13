@@ -21,7 +21,7 @@ class Board extends React.Component {
     return (
     //passes down function from the Board to the Square - square will call function when a square is clicked
     <Square 
-      value={this.state.squares[i]}
+      value={this.props.squares[i]}
       // board component now receives squares and onClick props from the Game component
       onClick={() => this.props.onClick(i)}
       />
@@ -32,7 +32,6 @@ class Board extends React.Component {
   render() {
     return (
       <div>
-        <div className="status">{status}</div>
         <div className="board-row">
           {this.renderSquare(0)}
           {this.renderSquare(1)}
@@ -68,9 +67,8 @@ class Game extends React.Component {
   handleClick(i) {
     const history = this.state.history;
     const current = history[history.length - 1];
-    const winner = calculateWinner(current.squares);
     // we call .slice() to create a copy of the squares array to modify instead of modifying the existing array
-    const squares = this.state.squares.slice(); 
+    const squares = current.squares.slice(); 
       //ignores click if someone has won
       if (calculateWinner(squares) || squares[i]) {
         return;
@@ -79,7 +77,7 @@ class Game extends React.Component {
     squares[i] = this.state.xIsNext ? 'X' : 'O'; 
     this.setState({
       history: history.concat([{
-        squares: squares,
+        squares: squares
       }]),
       xIsNext: !this.state.xIsNext,
     });
@@ -90,6 +88,18 @@ class Game extends React.Component {
     const history = this.state.history;
     const current = history[history.length - 1];
     const winner = calculateWinner(current.squares);
+
+    const moves = history.map((step, move) => {
+      const desc = move ?
+        'Go to move #' + move :
+        'Go to game start';
+      return (
+        <li key={move}>
+          <button onClick={() => this.jumpTo(move)}
+>{desc}</button>
+        </li>
+      );
+    });
     
     let status;
     if (winner) {
@@ -107,7 +117,7 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{/* TODO */}</ol>
+          <ol>{moves}</ol>
         </div>
       </div>
     );
