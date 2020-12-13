@@ -4,16 +4,15 @@ import './index.css';
 // import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-class Square extends React.Component {
-  render() {
+//Changed from a React.Component to a function component
+function Square (props) {
+  render() 
     return (
       <button 
-        className="square" 
-        onClick={() => this.props.onClick()}>
-        {this.props.value}
+        className="square" onClick = {props.onClick}>
+        {props.value}
       </button>
     );
-  }
 }
 
 // Keeping the state of all squares in the Board component will allow it to determine the winner in the future.
