@@ -16,6 +16,8 @@ class Square extends React.Component {
   }
 }
 
+// Keeping the state of all squares in the Board component will allow it to determine the winner in the future.
+// the Square components are now controlled components. The Board has full control over them.
 class Board extends React.Component {
   constructor(props) {
     super(props);
@@ -25,7 +27,7 @@ class Board extends React.Component {
   }
 
   handleClick(i) {
-    const squares = this.state.squares.slice();
+    const squares = this.state.squares.slice(); // we call .slice() to create a copy of the squares array to modify instead of modifying the existing array
     squares[i] = 'X';
     this.setState({squares:squares});
   }
