@@ -115,12 +115,14 @@ class Game extends React.Component {
       );
     });
     
+   
     let status;
     if (winner) {
       status = 'Winner: ' + winner;
     } else {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
+   
 
     return (
       <div className="game">
@@ -130,7 +132,7 @@ class Game extends React.Component {
           onClick={(i) => this.handleClick(i)}/>
         </div>
         <div className="game-info">
-          <div>{status}</div>
+          <div className="status">{status}</div>
           <ol>{moves}</ol>
         </div>
       </div>
