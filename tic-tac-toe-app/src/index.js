@@ -6,12 +6,11 @@ import reportWebVitals from './reportWebVitals';
 
 //Changed from a React.Component to a function component
 function Square (props) {
-  render() 
-    return (
-      <button 
-        className="square" onClick = {props.onClick}>
-        {props.value}
-      </button>
+  return (
+    <button 
+      className="square" onClick = {props.onClick}>
+      {props.value}
+    </button>
     );
 }
 
