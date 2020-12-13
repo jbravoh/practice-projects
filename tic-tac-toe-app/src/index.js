@@ -21,14 +21,21 @@ class Board extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      squares: Array(9).fill(null)
+      squares: Array(9).fill(null),
+      //Each time a player moves xIsNext will be flipped to determine which player goes next
+      xIsNext: true, 
     }
   }
 
   handleClick(i) {
-    const squares = this.state.squares.slice(); // we call .slice() to create a copy of the squares array to modify instead of modifying the existing array
-    squares[i] = 'X';
-    this.setState({squares:squares});
+    // we call .slice() to create a copy of the squares array to modify instead of modifying the existing array
+    const squares = this.state.squares.slice(); 
+    //“X”s and “O”s can take turns
+    squares[i] = this.state.xIsNext ? 'X' : 'O'; 
+    this.setState({
+      squares:squares,
+      xIsNext: !this.state.xIsNext,
+    });
   }
 
   renderSquare(i) {
@@ -42,7 +49,8 @@ class Board extends React.Component {
   }
  
   render() {
-    const status = 'Next player: X';
+    //render status text so it displays which player is next
+    const status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
 
     return (
       <div>
